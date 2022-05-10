@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Group24_assignment3": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\mirandayip\\source\\repos\\Group24_assignment3\\Group24_assignment3\\bin\\Debug",
+      "jsWebView2Debugging": false,
+      "sqlDebugging": true,
+      "remoteDebugEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

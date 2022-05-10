@@ -9,6 +9,7 @@ using System.Windows; //for generating a MessageBox upon encountering an error
 
 namespace Group24_assignment3
 {
+    
     abstract class studentgroup
     {
         //If including error reporting within this class (as this sample does) then you'll need a way
@@ -23,7 +24,7 @@ namespace Group24_assignment3
         private const string pass = "gmis";
         private const string server = "alacritas.cis.utas.edu.au";
 
-        private static MySqlConnection conn = null;
+       // private static MySqlConnection conn = null;
 
         //Part of step 2.3.3 in Week 8 tutorial. This method is a gift to you because .NET's approach to converting strings to enums is so horribly broken
         public static T ParseEnum<T>(string value)
@@ -45,10 +46,11 @@ namespace Group24_assignment3
             return conn;
         }
 
+
         //For step 2.2 in Week 8 tutorial
         public static List<Student> LoadAllStudents()
         {
-            List<Student> studnets = new List<Student>();
+            List <Student> students = new List<Student>();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -64,12 +66,12 @@ namespace Group24_assignment3
                 {
                     //Note that in your assignment you will need to inspect the *type* of the
                     //employee/researcher before deciding which kind of concrete class to create.
-                    studnets.Add(new Student { Id = rdr.GetInt32(0), FirstName = rdr.GetString(1), LastName = rdr.GetString(2) });
+                    students.Add(new Student { student_id = rdr.GetInt32(0), given_name = rdr.GetString(1), family_name = rdr.GetString(2) });
                 }
             }
             catch (MySqlException e)
             {
-                ReportError("loading staff", e);
+                ReportError("loading student", e);
             }
             finally
             {
@@ -83,7 +85,7 @@ namespace Group24_assignment3
                 }
             }
 
-            return studnets;
+            return students;
         }
 
         //For step 2.3 in Week 8 tutorial

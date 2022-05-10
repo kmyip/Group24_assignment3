@@ -1,58 +1,71 @@
-﻿<Window x:Class="Group24_assignment3.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group24_assignment3"
+        xmlns:Protobuf="clr-namespace:Google.Protobuf;assembly=Google.Protobuf" x:Class="Group24_assignment3.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl>
-            <TabItem Header="Master Tab">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="Master View">
+                <Grid Margin="0,0,0,0" HorizontalAlignment="Right" Width="794">
+                    <Grid.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.InfoColorKey}}"/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="38*"/>
                         <ColumnDefinition Width="56*"/>
                         <ColumnDefinition Width="8*"/>
                         <ColumnDefinition Width="17*"/>
-                        <ColumnDefinition Width="676*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="666*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Group Management Information System (GMIS) " HorizontalAlignment="Left" Margin="62,25,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="4"/>
-                    <Label Content="Master student View" HorizontalAlignment="Left" Margin="170,81,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="4"/>
-                    <Button Content="Show all groups" HorizontalAlignment="Left" Margin="0,131,0,0" VerticalAlignment="Top" Click="Button_Click" FontSize="16" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <Button Content="Show all students" HorizontalAlignment="Left" Margin="138,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="4"/>
-                    <Button Content="Show all classes" HorizontalAlignment="Left" Margin="282,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="4"/>
-                    <Button Content="Show all meetings" HorizontalAlignment="Left" Margin="418,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="4"/>
-                    <!--<ListBox HorizontalAlignment="Left" Height="137" Margin="116,233,0,0" VerticalAlignment="Top" Width="586" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListBox_SelectionChanged_1"/>-->
+                    <Label Content="Group Management Information System (GMIS) " HorizontalAlignment="Left" Margin="52,25,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="5"/>
+                    <Label Content="Master student View" HorizontalAlignment="Left" Margin="160,81,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="5"/>
+                    <Button x:Name="ShowAllGroups" Content="Show all groups" HorizontalAlignment="Left" Margin="0,131,0,0" VerticalAlignment="Top" Click="Button_Click" FontSize="16" Grid.Column="2" Grid.ColumnSpan="4" MouseDown="ShowAllGroups_MouseDown"/>
+                    <Button x:Name="ShowAllStudent" Content="Show all students" HorizontalAlignment="Left" Margin="115,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="5"/>
+                    <Button x:Name="ShowAllClasses" Content="Show all classes" HorizontalAlignment="Left" Margin="272,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="5"/>
+                    <Button x:Name="ShowAllMeetings" Content="Show all meetings" HorizontalAlignment="Left" Margin="408,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="5"/>
+                    <Button x:Name="Search" Content="Search" HorizontalAlignment="Left" Margin="416,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.622,0.032" Grid.Column="5"/>
+                    <ComboBox x:Name="myBox" HorizontalAlignment="Left" Margin="706,582,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="5" IsDropDownOpen="True" IsReadOnly="True" SelectedIndex="4" Cursor="" />
+                    <DataGrid x:Name="tblTable" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource LoadAllStudents}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Family Name" Binding="{Binding Path=FamilyName}"/>
+                            <DataGridTextColumn Header="Given Name" Binding="{Binding Path=GivenName}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
 
-                    <TextBlock HorizontalAlignment="Left" Margin="154,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Height="26" Width="223" Grid.Column="4"/>
-                    <Button Content="Search" HorizontalAlignment="Left" Margin="382,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.622,0.032" Grid.Column="4"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="4,188,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="2" Grid.ColumnSpan="3"/>
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,240,127,30" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <!-- <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,240,127,30" Grid.Column="3" Grid.ColumnSpan="3" SelectionChanged="DataGrid_SelectionChanged"/>
+                    -->
+                    <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3" SelectedIndex="4" ContentElement.Drop="1, 2, 3" IsSynchronizedWithCurrentItem="False" Cursor="ScrollAll">
+                        <ComboBox.DataContext>
+                            <local:Student/>
+                        </ComboBox.DataContext>
+                    </ComboBox>
+                    <TextBox Grid.Column="5" HorizontalAlignment="Left" Margin="212,189,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Bachelor Tab">
+            <TabItem Header="Bachelor View">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="51*"/>
                         <ColumnDefinition Width="731*"/>
                     </Grid.ColumnDefinitions>
+                    <!--
+                    <Label Content="Group Management Information System (GMIS) " HorizontalAlignment="Left" Margin="62,25,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="2"/>
+                    <Label Content="Bachelor student View" HorizontalAlignment="Left" Margin="170,81,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="2"/>
+                    <Button Content="Show all groups" HorizontalAlignment="Left" Margin="0,131,0,0" VerticalAlignment="Top" Click="Button_Click" FontSize="16" Grid.Column="2"/>
+                    <Button Content="Show all students" HorizontalAlignment="Left" Margin="138,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2"/>
+                    <Button Content="Show all classes" HorizontalAlignment="Left" Margin="282,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2"/>
+                    <Button Content="Show all meetings" HorizontalAlignment="Left" Margin="418,131,0,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2"/>
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,179,127,30" Grid.Column="2"/>
+                    -->
                 </Grid>
             </TabItem>
         </TabControl>
-        <!--
-        <Label Content="Group Management Information System (GMIS) " HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Master student View" HorizontalAlignment="Left" Margin="287,81,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="Show all groups" HorizontalAlignment="Left" Margin="101,131,0,0" VerticalAlignment="Top" Click="Button_Click" FontSize="16"/>
-        <Button Content="Show all students" HorizontalAlignment="Left" Margin="255,131,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Content="Show all classes" HorizontalAlignment="Left" Margin="400,131,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Content="Show all meetings" HorizontalAlignment="Left" Margin="535,131,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <ListBox HorizontalAlignment="Left" Height="137" Margin="116,233,0,0" VerticalAlignment="Top" Width="586" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListBox_SelectionChanged_1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="271,191,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="223"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="515,204,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.622,0.032"/>
-        <ComboBox HorizontalAlignment="Left" Margin="98,188,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
-        -->
-
-
     </Grid>
 </Window>

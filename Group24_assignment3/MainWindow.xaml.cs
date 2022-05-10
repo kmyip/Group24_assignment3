@@ -32,8 +32,25 @@ namespace Group24_assignment3
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           
+    }
+
+        private void ShowAllGroups_MouseDown(object sender, MouseButtonEventArgs e, TextBox textBox)
+        {
+            MessageBox.Show("The text entered is: " + textBox.Text);
+        }
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click(sender, e);
+            }
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
-       
+
+
     }
 }

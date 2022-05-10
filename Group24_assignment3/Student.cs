@@ -8,8 +8,8 @@ namespace Group24_assignment3
 {
     internal class Student
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int student_id { get; set; }
+        public string given_name { get; set; }
+        public string family_name { get; set; }
     }
 }
