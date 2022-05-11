@@ -23,34 +23,36 @@ namespace Group24_assignment3
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void ShowAllGroups_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("You have clicked Show all groups");
         }
 
+        private void ShowAllStudents_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You have clicked Show all students");
+        }
+
+        private void ShowAllClasses_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You have clicked Show all classes");
+        }
+
+        private void ShowAllMeetings_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You have clicked Show all meetings");
+        }
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Searching by: {this.TextBox.Text}");
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
-    }
-
-        private void ShowAllGroups_MouseDown(object sender, MouseButtonEventArgs e, TextBox textBox)
-        {
-            MessageBox.Show("The text entered is: " + textBox.Text);
-        }
-        private void TextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                Button_Click(sender, e);
-            }
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
         }
-
-
     }
 }

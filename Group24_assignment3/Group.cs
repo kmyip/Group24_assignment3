@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Group24_assignment3
 {
-    public class Student
+    public class Group
     {
-        public int student_id { get; set; }
-        public string given_name { get; set; }
-        public string family_name { get; set; }
+        public int group_id { get; set; }
+        public string group_name { get; set; }
     }
+
 }

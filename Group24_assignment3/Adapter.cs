@@ -10,7 +10,7 @@ using System.Windows; //for generating a MessageBox upon encountering an error
 namespace Group24_assignment3
 {
     
-    abstract class studentgroup
+    abstract class studentGroup
     {
         //If including error reporting within this class (as this sample does) then you'll need a way
         //to control whether the errors are actually shown or silently ignored, since once you have
@@ -24,9 +24,8 @@ namespace Group24_assignment3
         private const string pass = "gmis";
         private const string server = "alacritas.cis.utas.edu.au";
 
-       // private static MySqlConnection conn = null;
+       private static MySqlConnection conn = null;
 
-        //Part of step 2.3.3 in Week 8 tutorial. This method is a gift to you because .NET's approach to converting strings to enums is so horribly broken
         public static T ParseEnum<T>(string value)
         {
             return (T)Enum.Parse(typeof(T), value);
@@ -59,7 +58,7 @@ namespace Group24_assignment3
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name from student", conn);
+                MySqlCommand cmd = new MySqlCommand("select student_id, given_name, family_name from student", conn);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
@@ -89,10 +88,10 @@ namespace Group24_assignment3
         }
 
         //For step 2.3 in Week 8 tutorial
-        /*
-        public static List<TrainingSession> LoadTrainingSessions(int id)
+      
+        public static List<Group> LoadAllGroups(int group_id)
         {
-            List<TrainingSession> work = new List<TrainingSession>();
+            List<Group> groups = new List<Group>();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -101,27 +100,24 @@ namespace Group24_assignment3
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select title, year, type, available " +
-                                                    "from publication as pub, researcher_publication as respub " +
-                                                    "where pub.doi=respub.doi and researcher_id=?id", conn);
+                MySqlCommand cmd = new MySqlCommand("select group_id, group_name from studentGroup", conn);
 
-                cmd.Parameters.AddWithValue("id", id);
+                cmd.Parameters.AddWithValue("id", group_id);
                 rdr = cmd.ExecuteReader();
-
+                
                 while (rdr.Read())
                 {
-                    work.Add(new TrainingSession
+                    groups.Add(new Group
                     {
-                        Title = rdr.GetString(0),
-                        Year = rdr.GetInt32(1),
-                        Mode = ParseEnum<Mode>(rdr.GetString(2)),
-                        Certified = rdr.GetDateTime(3)
+                        group_id = rdr.GetInt32(0),
+                        //group_name = rdr.GetInt32(1)
                     });
+                
                 }
             }
             catch (MySqlException e)
             {
-                ReportError("loading training sessions", e);
+                ReportError("loading all groups", e);
             }
             finally
             {
@@ -135,9 +131,9 @@ namespace Group24_assignment3
                 }
             }
 
-            return work;
+            return groups;
         }
-        */
+        
         /// <summary>
         /// In a more complete application this error would be logged to a file
         /// and the error reported back to the original caller, who is closer
